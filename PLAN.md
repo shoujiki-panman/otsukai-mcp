@@ -11,14 +11,14 @@
 ## 作るもの
 - MCP サーバー（この repo）: Cloudflare Workers・MCP 2025-11-25 Streamable HTTP・道具 `send_errand` / `check_errands`。持つのは品物・ひと言・頼んだ人・済んだか・時刻だけ（居場所なし・30日・50件まで）
 - 「ここだよ」: 通知から「済んだ」→ `POST /errands/<id>/done`（x-push-token で本人確認）。knock に errandId を通す
-- Alexa+ の代わり: コミュニティのシミュレーター（alexa-plus-sim / mcp-voice-simulator / alexa-skill-mcp-bridge）から1つ
+- Alexa+ の代わり: **本物の Echo**。たぬきテストのスキルが話した文を丸ごと受け取り（FREE_TEXT スロット）、AI が MCP の道具を選び、返事はコードで日本語にする。Bedrock の鍵を作れば Nova に切り替わる（本人は鍵の発行を嫌がった）
 
 ## 日程
 | 時期 | やること | 状態 |
 |---|---|---|
 | 10/3〜10/6 | MCP サーバー（道具2つ）・Inspector で確認 | ✅ 10/3 デプロイ・2025-11-25 で応答・送信→即読み出しOK |
 | 10/7〜10/10 | 「ここだよ」の「済んだ」と返し方 | ✅ 10/3 実機で確認（アプリを完全に閉じた状態で通知を長押し→済んだ→check_errands が DONE）。ここだよ ブランチ alexa-errand 49c729b |
-| 10/11〜10/14 | シミュレーターを選んで通し | |
+| 10/11〜10/14 | ~~シミュレーター~~ → **本物の Echo** で通す（本人「シミュレーターはしょぼい」） | 🔧 10/3 Echo→スキル（work/alexa/hello）→Workers AI(Llama 4 Scout・鍵いらず)→MCP の通しをシミュレーターで確認。実機 Echo 待ち |
 | 10/15〜10/18 | デモ動画・README・Devpost 説明 | |
 | 10/19〜10/22 | 予備・提出 | |
 
