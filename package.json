@@ -1,14 +1,13 @@
 {
   "name": "otsukai-mcp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "description": "MCP server for Alexa+: ask a family member who is out to pick something up, and check whether they did.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "tsc -p . && vitest run",
+    "test": "vitest run",
+    "deploy": "wrangler deploy"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261002.1",
@@ -20,5 +19,6 @@
     "@modelcontextprotocol/server": "^2.0.0",
     "agents": "^0.25.0",
     "zod": "^4.6.5"
-  }
+  },
+  "private": true
 }
