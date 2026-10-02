@@ -17,7 +17,7 @@
 | 時期 | やること | 状態 |
 |---|---|---|
 | 10/3〜10/6 | MCP サーバー（道具2つ）・Inspector で確認 | ✅ 10/3 デプロイ・2025-11-25 で応答・送信→即読み出しOK |
-| 10/7〜10/10 | 「ここだよ」の「済んだ」と返し方 | |
+| 10/7〜10/10 | 「ここだよ」の「済んだ」と返し方 | ✅ 10/3 実機で確認（アプリを完全に閉じた状態で通知を長押し→済んだ→check_errands が DONE）。ここだよ ブランチ alexa-errand 49c729b |
 | 10/11〜10/14 | シミュレーターを選んで通し | |
 | 10/15〜10/18 | デモ動画・README・Devpost 説明 | |
 | 10/19〜10/22 | 予備・提出 | |
@@ -28,6 +28,9 @@
 - 公開 repo＋README＋3分以内の動画
 
 ## メモ
+- 「済んだ」が届かなかった原因（推測）：通知を押して開いたとき1秒待ちで札が出なかった／閉じた状態で送り終わる前に止められた → 画面が前に出てから聞く・beginBackgroundTask で直した
+- 入れ直した直後はアプリを1回開くまで「済んだ」ボタンが出ない（通知の種類の登録が起動時のため）
+- 呼び鈴 knock は「ここだよ」本体と共用。本番 v5 の正本は alexa-errand ブランチ
 - URL: https://otsukai-mcp.shoujiki-panman.workers.dev/mcp（Bearer は Keychain の OTSUKAI_MCP_TOKEN → `kc get OTSUKAI_MCP_TOKEN`）
 - KV の一覧取得は反映が約20秒遅れた → 全件を1キーに持つ形に変えた
 - 確認: `npx @modelcontextprotocol/inspector --cli <URL> --transport http --header "Authorization: Bearer …" --method tools/list`
