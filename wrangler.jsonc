@@ -2,11 +2,14 @@
   "name": "otsukai-mcp",
   "main": "src/index.ts",
   "compatibility_date": "2026-09-01",
-  "compatibility_flags": ["nodejs_compat"],
-  "kv_namespaces": [{ "binding": "ERRANDS", "id": "6b9d7be8fbd949e9bf9d8e61a1f747ae" }],
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "kv_namespaces": [
+    { "binding": "ERRANDS", "id": "6b9d7be8fbd949e9bf9d8e61a1f747ae" },
+    { "binding": "OAUTH_KV", "id": "f0831009add14e54b4e1d704ecd50544" }
+  ],
   "vars": {
     // あなたの iPhone は開発用の署名で入れているので sandbox
     "KOKODAYO_PUSH_ENV": "sandbox"
   }
-  // secrets: MCP_TOKEN（MCP の呼び出し元を確かめる）, KOKODAYO_PUSH_TO（あなたの iPhone の通知の宛先）
+  // secrets: MCP_TOKEN（/internal-mcp の合言葉）, LOGIN_PASSPHRASE（OAuth 同意画面の合言葉）, KOKODAYO_PUSH_TO（あなたの iPhone の通知の宛先）
 }

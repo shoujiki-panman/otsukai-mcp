@@ -29,6 +29,12 @@ Alexa+ ──MCP (2025-11-25, Streamable HTTP)──▶ otsukai-mcp (Cloudflare 
 
 The notification is delivered by [Kokodayo](https://github.com/shoujiki-panman), a meetup app for family and friends, through its Apple Push Notification relay.
 
+## Authentication
+
+`/mcp` is protected with OAuth 2.1 (authorization code + PKCE S256), using Cloudflare's [workers-oauth-provider](https://github.com/cloudflare/workers-oauth-provider).
+Clients can register with Dynamic Client Registration or a Client ID Metadata Document, which is what ChatGPT and Alexa+ expect.
+The consent page asks for a family passphrase, so only the household can connect an assistant.
+
 ## Privacy
 
 The server keeps only what the errand needs: the item, an optional note, who asked, whether it is done, and when.
@@ -40,7 +46,9 @@ No location. Entries disappear after 30 days, and at most 50 are kept.
 npm install
 npm run check        # typecheck + unit tests
 npx wrangler kv namespace create ERRANDS   # put the id into wrangler.jsonc
-npx wrangler secret put MCP_TOKEN          # bearer token for MCP clients
+npx wrangler kv namespace create OAUTH_KV  # put the id into wrangler.jsonc
+npx wrangler secret put LOGIN_PASSPHRASE   # passphrase on the consent page
+npx wrangler secret put MCP_TOKEN          # bearer token for /internal-mcp (Echo bridge)
 npx wrangler secret put KOKODAYO_PUSH_TO   # the phone to notify
 npm run deploy
 ```
@@ -48,7 +56,7 @@ npm run deploy
 Try it with the MCP Inspector:
 
 ```bash
-npx @modelcontextprotocol/inspector --cli https://<your-worker>/mcp \
+npx @modelcontextprotocol/inspector --cli https://<your-worker>/internal-mcp \
   --transport http --header "Authorization: Bearer <MCP_TOKEN>" --method tools/list
 ```
 
